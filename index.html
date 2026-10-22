@@ -9,99 +9,111 @@
 <meta name="description" content="人社中心 USR Hub SROI 訪談時間預約">
 <style>
 :root{
-  --bg:#FAFAF9; --surface:#FFFFFF; --line:#E4E4E0; --ink:#151515; --ink-2:#55554F;
-  --accent:#1F3FBF; --accent-soft:#EEF1FC; --ok:#17603A; --ok-soft:#E9F5EE; --err:#9B1C1C;
-  --radius:10px;
+  /* palette: deep navy band, pale blue ground, white working surfaces; text AAA (>=7:1), UI borders >=3:1 */
+  --bg:#E6ECF7; --surface:#FFFFFF; --band:#12275A; --band-ink:#FFFFFF; --band-ink-2:#D6E0F5; --band-dot:#8FB4FF;
+  --ink:#0F1B33; --ink-2:#34425F; --line:#6F82AE; --soft-line:#B9C6E2;
+  --accent:#14449C; --accent-soft:#DCE6FA; --head:#D3DEF4;
+  --taken-bg:#C9D0DF; --taken-ink:#2B3346; --taken-line:#6B7488;
+  --closed-bg:#C3CEE6; --closed-stripe:#A9B8DB;
+  --ok:#0B5B34; --ok-ink:#FFFFFF; --err:#8F1212; --focus:#0F1B33;
+  --radius:12px; --row:36px;
   --font:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,-apple-system,"Segoe UI",sans-serif;
+  color-scheme:light;
 }
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
-body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.7 var(--font)}
-main{max-width:760px;margin:0 auto;padding:56px 16px 96px}
-.eyebrow{font-size:13px;letter-spacing:.08em;color:var(--ink-2);margin:0 0 12px}
-h1{font-size:clamp(28px,5vw,40px);line-height:1.25;letter-spacing:-.01em;margin:0 0 16px;font-weight:650}
-.lead{color:var(--ink-2);margin:0 0 8px;max-width:34em}
-.meta{display:flex;gap:8px 20px;flex-wrap:wrap;margin:20px 0 40px;padding:0;list-style:none;font-size:14px;color:var(--ink-2)}
-.meta li::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--accent);margin-right:8px;vertical-align:middle}
-.day{margin:0 0 28px}
-.day h2{display:flex;align-items:baseline;gap:10px;font-size:15px;margin:0 0 10px;font-weight:600}
-.day h2 small{font-weight:400;color:var(--ink-2);font-size:13px}
-.tag{font-size:12px;border:1px solid var(--line);border-radius:99px;padding:0 8px;color:var(--ink-2);background:var(--surface)}
-.slots{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px}
+body{margin:0;background:var(--bg);color:var(--ink);font:18px/1.75 var(--font)}
+.band{background:var(--band);color:var(--band-ink);padding:48px 16px 40px}
+.band-in,main{max-width:980px;margin:0 auto}
+main{padding:32px 16px 96px}
+.eyebrow{font-size:15px;letter-spacing:.08em;color:var(--band-ink-2);margin:0 0 12px;font-weight:500}
+h1{font-size:clamp(30px,5vw,42px);line-height:1.25;letter-spacing:-.01em;margin:0 0 16px;font-weight:700;color:var(--band-ink)}
+.lead{color:var(--band-ink-2);margin:0;max-width:34em}
+.meta{display:flex;gap:8px 24px;flex-wrap:wrap;margin:24px 0 0;padding:0;list-style:none;font-size:16px;color:var(--band-ink)}
+.meta li::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--band-dot);margin-right:10px;vertical-align:middle}
+.step{font-size:18px;font-weight:700;margin:0 0 4px}
+.step-sub{margin:0 0 16px;color:var(--ink-2);font-size:16px}
+.tag{font-size:13px;border:1.5px solid var(--ink-2);border-radius:99px;padding:0 10px;color:var(--ink);background:var(--surface);font-weight:600}
 .slot{appearance:none;font:inherit;text-align:left;cursor:pointer;color:var(--ink);background:var(--surface);
-  border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;display:flex;justify-content:space-between;align-items:center;gap:8px;
-  transition:border-color .18s,box-shadow .18s,transform .18s,background .18s}
-.slot b{font-weight:600;font-variant-numeric:tabular-nums}
-.slot span{font-size:13px;color:var(--ink-2)}
-@media (hover:hover){.slot:hover:not([aria-disabled=true]){border-color:var(--accent);box-shadow:0 4px 16px rgba(31,63,191,.10);transform:translateY(-1px)}}
-.slot:focus-visible,button:focus-visible,select:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-.slot[aria-disabled=true]{cursor:not-allowed;background:#F1F1EE;color:#6A6A64}
+  border:2px solid var(--accent);border-radius:var(--radius);padding:10px 12px;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:2px;
+  transition:background .18s,box-shadow .18s,transform .18s}
+.slot b{font-weight:700;font-size:17px;font-variant-numeric:tabular-nums;line-height:1.3}
+.slot span{font-size:15px;color:var(--accent);font-weight:600;line-height:1.3}
+@media (hover:hover){.slot:hover:not([aria-disabled=true]):not(.mine){background:var(--accent-soft);box-shadow:0 4px 14px rgba(18,39,90,.18);transform:translateY(-1px)}}
+.slot:focus-visible,button:focus-visible,select:focus-visible,input:focus-visible,textarea:focus-visible,.seg input:focus-visible+label{outline:3px solid var(--focus);outline-offset:3px;box-shadow:0 0 0 6px #fff}
+.slot[aria-disabled=true]{cursor:not-allowed;background:var(--taken-bg);border:2px dashed var(--taken-line);color:var(--taken-ink)}
 .slot[aria-disabled=true] b{text-decoration:line-through}
-.slot.mine{background:var(--ok-soft);border-color:var(--ok);color:var(--ok);cursor:default}
-.slot.mine span{color:var(--ok)}
+.slot[aria-disabled=true] span{color:var(--taken-ink)}
+.slot.mine{background:var(--ok);border-color:var(--ok);color:var(--ok-ink);cursor:default}
+.slot.mine span{color:var(--ok-ink)}
 .state{color:var(--ink-2);padding:24px 0}
-.state.err{color:var(--err)}
+.state.err{color:var(--err);font-weight:600}
 /* dialog */
-dialog{border:1px solid var(--line);border-radius:14px;padding:0;width:min(440px,calc(100% - 32px));background:var(--surface);color:var(--ink);box-shadow:0 24px 64px rgba(0,0,0,.18)}
-dialog::backdrop{background:rgba(21,21,21,.38)}
+dialog{border:2px solid var(--ink);border-radius:16px;padding:0;width:min(480px,calc(100% - 32px));background:var(--surface);color:var(--ink);box-shadow:0 24px 64px rgba(0,0,0,.3)}
+dialog::backdrop{background:rgba(15,27,51,.6)}
 form{padding:24px}
-form h3{margin:0 0 4px;font-size:20px}
-form p.sub{margin:0 0 20px;color:var(--ink-2);font-size:14px}
-label{display:block;font-size:14px;font-weight:600;margin:16px 0 6px}
-select,input,textarea{width:100%;font:inherit;padding:10px 12px;border:1px solid #BDBDB6;border-radius:8px;background:#fff;color:var(--ink)}
-textarea{resize:vertical;min-height:72px}
-.seg{display:flex;gap:8px}
+form h3{margin:0 0 4px;font-size:22px}
+form p.sub{margin:0 0 16px;color:var(--ink-2);font-size:17px}
+label{display:block;font-size:17px;font-weight:700;margin:18px 0 6px}
+select,input,textarea{width:100%;font:inherit;min-height:48px;padding:10px 12px;border:2px solid var(--line);border-radius:10px;background:#fff;color:var(--ink)}
+textarea{resize:vertical;min-height:84px}
+.seg{display:flex;gap:10px}
 .seg input{position:absolute;opacity:0;pointer-events:none}
-.seg label{margin:0;flex:1;text-align:center;font-weight:500;border:1px solid #BDBDB6;border-radius:8px;padding:10px;cursor:pointer;transition:background .15s,border-color .15s,color .15s}
-.seg input:checked+label{background:var(--accent-soft);border-color:var(--accent);color:var(--accent);font-weight:600}
-.seg input:focus-visible+label{outline:2px solid var(--accent);outline-offset:2px}
-.actions{display:flex;gap:10px;justify-content:flex-end;margin-top:24px}
-.btn{font:inherit;font-weight:600;padding:10px 18px;border-radius:8px;border:1px solid var(--line);background:#fff;color:var(--ink);cursor:pointer;transition:background .15s,transform .15s}
+.seg label{margin:0;flex:1;text-align:center;font-weight:600;border:2px solid var(--line);border-radius:10px;padding:10px;min-height:48px;cursor:pointer;transition:background .15s,border-color .15s,color .15s}
+.seg input:checked+label{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:700}
+.seg input:checked+label::before{content:"✓ "}
+.actions{display:flex;gap:12px;justify-content:flex-end;margin-top:24px;flex-wrap:wrap}
+.btn{font:inherit;font-weight:700;min-height:48px;padding:10px 22px;border-radius:10px;border:2px solid var(--ink-2);background:#fff;color:var(--ink);cursor:pointer;transition:background .15s,transform .15s}
 .btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
 @media (hover:hover){.btn:hover{transform:translateY(-1px)}}
-.btn[disabled]{opacity:.6;cursor:wait;transform:none}
-.msg{margin:16px 0 0;font-size:14px;color:var(--err);min-height:1.4em}
+.btn[disabled]{opacity:.7;cursor:wait;transform:none}
+.msg{margin:16px 0 0;font-size:16px;font-weight:600;color:var(--err);min-height:1.4em}
 .done{padding:32px 24px;text-align:center}
-.done .tick{width:44px;height:44px;border-radius:50%;background:var(--ok-soft);color:var(--ok);display:grid;place-items:center;margin:0 auto 14px;font-size:22px}
-footer{margin-top:48px;font-size:13px;color:var(--ink-2);border-top:1px solid var(--line);padding-top:16px}
+.done .tick{width:52px;height:52px;border-radius:50%;background:var(--ok);color:#fff;display:grid;place-items:center;margin:0 auto 14px;font-size:26px}
+footer{margin-top:40px;font-size:16px;color:var(--ink);border-top:2px solid var(--soft-line);padding-top:16px}
 /* weekly calendar: columns = dates, rows = time */
-:root{--row:30px;--hatch:#E9E9E4}
-main{max-width:980px}
-.cal-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:0 0 12px}
-.cal{display:grid;min-width:640px;column-gap:6px;padding:0 12px}
-.cal .hd{position:sticky;top:0;padding:14px 4px 10px;text-align:center;font-weight:600;font-size:15px;line-height:1.3;border-bottom:1px solid var(--line);background:var(--surface);font-variant-numeric:tabular-nums}
-.cal .hd small{display:block;font-weight:400;font-size:12px;color:var(--ink-2)}
+.cal-wrap{overflow-x:auto;border:2px solid var(--line);border-radius:14px;background:var(--surface);padding:0 0 12px}
+.cal{display:grid;min-width:680px;column-gap:6px;padding:0 12px}
+.cal .hd{position:sticky;top:0;padding:12px 4px 10px;text-align:center;font-weight:700;font-size:18px;line-height:1.3;border-bottom:2px solid var(--line);background:var(--head);color:var(--ink);font-variant-numeric:tabular-nums}
+.cal .hd small{display:block;font-weight:600;font-size:15px;color:var(--ink-2)}
 .cal .hd .tag{margin-top:4px;display:inline-block}
-.cal .tm{font-size:12px;color:var(--ink-2);text-align:right;padding-right:8px;transform:translateY(-.6em);font-variant-numeric:tabular-nums}
-.cal .col{background:repeating-linear-gradient(135deg,transparent 0 6px,var(--hatch) 6px 7px);border-left:1px solid var(--line);border-right:1px solid var(--line)}
-.cal .gap{grid-row:1 / -1}
-.cal .slot{flex-direction:column;align-items:flex-start;justify-content:center;gap:2px;margin:3px 4px;padding:8px 10px;z-index:1;min-width:0}
-.cal .slot b{font-size:14px}
-.hint{display:none;font-size:13px;color:var(--ink-2);margin:0 0 8px}
-@media (max-width:700px){.hint{display:block}}
-.legend{display:flex;gap:16px;flex-wrap:wrap;margin:0 0 12px;font-size:13px;color:var(--ink-2)}
-.legend i{display:inline-block;width:14px;height:14px;border-radius:4px;vertical-align:-2px;margin-right:6px;border:1px solid var(--line)}
+.cal .tm{font-size:14px;color:var(--ink-2);font-weight:500;text-align:right;padding-right:8px;transform:translateY(-.6em);font-variant-numeric:tabular-nums}
+.cal .col{background:repeating-linear-gradient(135deg,var(--closed-bg) 0 6px,var(--closed-stripe) 6px 8px);border-left:1px solid var(--line);border-right:1px solid var(--line)}
+.cal .slot{margin:3px 4px;z-index:1;min-width:0}
+.legend{display:flex;gap:10px 22px;flex-wrap:wrap;margin:0 0 14px;padding:0;list-style:none;font-size:16px;color:var(--ink)}
+.legend i{display:inline-block;width:20px;height:20px;border-radius:5px;vertical-align:-4px;margin-right:8px}
+.legend .l-open{background:#fff;border:2px solid var(--accent)}
+.legend .l-taken{background:var(--taken-bg);border:2px dashed var(--taken-line)}
+.legend .l-closed{background:repeating-linear-gradient(135deg,var(--closed-bg) 0 3px,var(--closed-stripe) 3px 5px);border:1px solid var(--line)}
+.hint{display:none;font-size:16px;color:var(--ink-2);margin:0 0 8px;font-weight:600}
+@media (max-width:700px){.hint{display:block}.band{padding-top:36px}}
+@media (prefers-contrast:more){:root{--line:#2F4170;--ink-2:#1B2744}}
+@media (forced-colors:active){.slot,.btn,.cal-wrap{border-color:CanvasText}.slot.mine{outline:3px solid Highlight}}
 @media (prefers-reduced-motion:no-preference){
-  .rise{animation:rise .5s cubic-bezier(.2,.7,.2,1) both;animation-delay:calc(var(--i,0)*60ms)}
+  .rise{animation:rise .5s cubic-bezier(.2,.7,.2,1) both}
   @keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
   dialog[open]{animation:pop .22s cubic-bezier(.2,.7,.2,1)}
   @keyframes pop{from{opacity:0;transform:translateY(10px) scale(.98)}to{opacity:1;transform:none}}
   .slot.flash{animation:flash .9s ease-out}
-  @keyframes flash{from{box-shadow:0 0 0 6px rgba(23,96,58,.25)}to{box-shadow:0 0 0 0 rgba(23,96,58,0)}}
+  @keyframes flash{from{box-shadow:0 0 0 8px rgba(11,91,52,.35)}to{box-shadow:0 0 0 0 rgba(11,91,52,0)}}
 }
 </style>
 </head>
 <body>
-<main>
+<header class="band"><div class="band-in">
   <p class="eyebrow">人社中心 USR Hub　·　SROI 研究</p>
   <h1>SROI 訪談時間預約</h1>
   <p class="lead">誠摯邀請您分享推動 USR 的實務經驗。請選擇一個方便的時段，送出後即完成預約，系統會同步通知助理。</p>
   <ul class="meta"><li>每場 1–1.5 小時</li><li>面訪或線上皆可</li><li>每位老師預約一個時段，可隨時改選</li></ul>
+</div></header>
+<main id="main">
+  <h2 class="step">請選擇方便的時段</h2>
+  <p class="step-sub">點選白底藍框的時段，填寫姓名後送出即完成預約。</p>
   <div id="app" aria-live="polite"><p class="state">載入時段中…</p></div>
   <footer>若時段都不方便，或需要協助，請直接回信給助理（陳聿盛），我們會另行安排。</footer>
 </main>
 
-<dialog id="dlg">
+<dialog id="dlg" aria-labelledby="dTitle">
   <form method="dialog" id="form">
     <h3 id="dTitle">預約時段</h3>
     <p class="sub" id="dSub"></p>
@@ -171,10 +183,10 @@ function render(){
   slots.forEach(s=>{
     const r0 = (mins(s.time)-t0)/30 + 2, span = (endm(s.time)-mins(s.time))/30;
     const isMine = mine===s.row, dis = (s.taken && !isMine) ? 'aria-disabled="true"' : "";
-    const tail = isMine?"您已預約" : s.taken?"已被預約" : "可預約";
+    const tail = isMine?"● 您已預約" : s.taken?"✕ 已被預約" : "✓ 可預約";
     h += `<button class="slot${isMine?" mine":""}" data-row="${s.row}" ${dis} style="grid-row:${r0} / span ${span};grid-column:${colOf[s.date]}" aria-label="${s.date} ${s.time} ${tail}"><b>${s.time}</b><span>${tail}</span></button>`;
   });
-  app.innerHTML = `<p class="hint">← 左右滑動可看其他日期 →</p><div class="legend"><span><i style="background:#fff"></i>可預約</span><span><i style="background:#F1F1EE"></i>已被預約</span><span><i style="background:repeating-linear-gradient(135deg,#fff 0 3px,#E9E9E4 3px 4px)"></i>不開放</span></div>
+  app.innerHTML = `<p class="hint">← 左右滑動可看其他日期 →</p><ul class="legend"><li><i class="l-open"></i>✓ 可預約</li><li><i class="l-taken"></i>✕ 已被預約</li><li><i class="l-closed"></i>斜線：不開放</li></ul>
     <div class="cal-wrap rise"><div class="cal" style="grid-template-columns:${cols.join(" ")};grid-template-rows:auto repeat(${N},var(--row))">${h}</div></div>`;
 }
 
