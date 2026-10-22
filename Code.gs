@@ -39,7 +39,7 @@ function doPost(e) {
     const names = sh.getRange(FIRST_ROW, 6, LAST_ROW - FIRST_ROW + 1, 1).getValues();
     names.forEach((n, i) => { if (n[0] === b.name && FIRST_ROW + i !== row) sh.getRange(FIRST_ROW + i, 5, 1, 4).setValues([['空缺', '', '', '']]); });
     sh.getRange(row, 5, 1, 4).setValues([['確定', b.name, b.mode || '', b.note || '']]);
-    MailApp.sendEmail(NOTIFY, '[SROI 訪談預約] ' + b.name, b.name + ' 預約 ' + day_(sh.getRange(row, 1).getDisplayValue()) + ' ' + b.time + '（' + (b.mode || '未選') + '）\n備註：' + (b.note || '無'));
+    MailApp.sendEmail(NOTIFY, '[SROI 訪談預約] ' + b.name, b.name + ' 預約 ' + day_(sh.getRange(row, 1).getDisplayValue()) + ' ' + b.time + '\n備註：' + (b.note || '無'));
     return json_({ ok: true });
   } catch (err) {
     return json_({ ok: false, error: String(err) });

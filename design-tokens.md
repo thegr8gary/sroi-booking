@@ -1,6 +1,6 @@
 # sroi-booking design tokens
-Tone: precise / restrained, but high-contrast and universally readable (2026-10-22).
-- band #12275A (white text 14:1), ground #E6ECF7, surface #FFFFFF, ink #0F1B33 (14.5:1), ink-2 #34425F (>=8:1)
-- accent #14449C; open slot = white + 2px blue border + "✓ 可預約"; taken = grey dashed + strike + "✕ 已被預約"; mine = green fill + "●"; closed = blue stripes
+Tone: NCKU red (#B81C22 sampled from Research NCKU banner), high-contrast, universally readable (2026-10-22).
+- band #9B1219 + 6px #B81C22 rule, ground #EFF1F4, surface #FFFFFF, ink #1E1E22, ink-2 #3C3C44
+- accent #9B1219; open slot = white + 2px red border + "✓ 可預約"; taken = grey dashed + strike + "✕ 已被預約"; mine = green fill + "●"; closed = grey stripes
 - state never relies on colour alone (icon + text + border style); UI borders >= 3:1
 - base 18px, targets >= 48px, focus ring 3px + white halo; supports prefers-contrast, forced-colors, reduced-motion

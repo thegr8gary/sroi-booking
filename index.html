@@ -9,13 +9,13 @@
 <meta name="description" content="人社中心 USR Hub SROI 訪談時間預約">
 <style>
 :root{
-  /* palette: deep navy band, pale blue ground, white working surfaces; text AAA (>=7:1), UI borders >=3:1 */
-  --bg:#E6ECF7; --surface:#FFFFFF; --band:#12275A; --band-ink:#FFFFFF; --band-ink-2:#D6E0F5; --band-dot:#8FB4FF;
-  --ink:#0F1B33; --ink-2:#34425F; --line:#6F82AE; --soft-line:#B9C6E2;
-  --accent:#14449C; --accent-soft:#DCE6FA; --head:#D3DEF4;
-  --taken-bg:#C9D0DF; --taken-ink:#2B3346; --taken-line:#6B7488;
-  --closed-bg:#C3CEE6; --closed-stripe:#A9B8DB;
-  --ok:#0B5B34; --ok-ink:#FFFFFF; --err:#8F1212; --focus:#0F1B33;
+  /* palette: NCKU red (#B81C22, sampled from the Research NCKU banner) with neutral greys; text AAA (>=7:1), UI borders >=3:1 */
+  --bg:#EFF1F4; --surface:#FFFFFF; --band:#9B1219; --brand:#B81C22; --band-ink:#FFFFFF; --band-ink-2:#FBE9EA; --band-dot:#FFB3B8;
+  --ink:#1E1E22; --ink-2:#3C3C44; --line:#7A7A86; --soft-line:#C9CCD3;
+  --accent:#9B1219; --accent-soft:#FBEDEE; --head:#F3E1E3;
+  --taken-bg:#D3D6DC; --taken-ink:#2A2A30; --taken-line:#6B6B76;
+  --closed-bg:#D2D5DB; --closed-stripe:#BEC3CC;
+  --ok:#0B5B34; --ok-ink:#FFFFFF; --err:#8F1212; --focus:#1E1E22;
   --radius:12px; --row:36px;
   --font:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,-apple-system,"Segoe UI",sans-serif;
   color-scheme:light;
@@ -23,7 +23,7 @@
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--bg);color:var(--ink);font:18px/1.75 var(--font)}
-.band{background:var(--band);color:var(--band-ink);padding:48px 16px 40px}
+.band{background:var(--band);border-bottom:6px solid var(--brand);color:var(--band-ink);padding:48px 16px 40px}
 .band-in,main{max-width:980px;margin:0 auto}
 main{padding:32px 16px 96px}
 .eyebrow{font-size:15px;letter-spacing:.08em;color:var(--band-ink-2);margin:0 0 12px;font-weight:500}
@@ -39,7 +39,7 @@ h1{font-size:clamp(30px,5vw,42px);line-height:1.25;letter-spacing:-.01em;margin:
   transition:background .18s,box-shadow .18s,transform .18s}
 .slot b{font-weight:700;font-size:17px;font-variant-numeric:tabular-nums;line-height:1.3}
 .slot span{font-size:15px;color:var(--accent);font-weight:600;line-height:1.3}
-@media (hover:hover){.slot:hover:not([aria-disabled=true]):not(.mine){background:var(--accent-soft);box-shadow:0 4px 14px rgba(18,39,90,.18);transform:translateY(-1px)}}
+@media (hover:hover){.slot:hover:not([aria-disabled=true]):not(.mine){background:var(--accent-soft);box-shadow:0 4px 14px rgba(30,30,34,.2);transform:translateY(-1px)}}
 .slot:focus-visible,button:focus-visible,select:focus-visible,input:focus-visible,textarea:focus-visible,.seg input:focus-visible+label{outline:3px solid var(--focus);outline-offset:3px;box-shadow:0 0 0 6px #fff}
 .slot[aria-disabled=true]{cursor:not-allowed;background:var(--taken-bg);border:2px dashed var(--taken-line);color:var(--taken-ink)}
 .slot[aria-disabled=true] b{text-decoration:line-through}
@@ -50,7 +50,7 @@ h1{font-size:clamp(30px,5vw,42px);line-height:1.25;letter-spacing:-.01em;margin:
 .state.err{color:var(--err);font-weight:600}
 /* dialog */
 dialog{border:2px solid var(--ink);border-radius:16px;padding:0;width:min(480px,calc(100% - 32px));background:var(--surface);color:var(--ink);box-shadow:0 24px 64px rgba(0,0,0,.3)}
-dialog::backdrop{background:rgba(15,27,51,.6)}
+dialog::backdrop{background:rgba(30,30,34,.6)}
 form{padding:24px}
 form h3{margin:0 0 4px;font-size:22px}
 form p.sub{margin:0 0 16px;color:var(--ink-2);font-size:17px}
@@ -108,7 +108,7 @@ footer{margin-top:40px;font-size:16px;color:var(--ink);border-top:2px solid var(
 </div></header>
 <main id="main">
   <h2 class="step">請選擇方便的時段</h2>
-  <p class="step-sub">點選白底藍框的時段，填寫姓名後送出即完成預約。</p>
+  <p class="step-sub">點選白底紅框的時段，填寫姓名後送出即完成預約。</p>
   <div id="app" aria-live="polite"><p class="state">載入時段中…</p></div>
   <footer>若時段都不方便，或需要協助，請直接回信給助理（陳聿盛），我們會另行安排。</footer>
 </main>
@@ -119,11 +119,6 @@ footer{margin-top:40px;font-size:16px;color:var(--ink);border-top:2px solid var(
     <p class="sub" id="dSub"></p>
     <label for="name">老師姓名</label>
     <select id="name" required><option value="">請選擇</option></select>
-    <label id="modeL">訪談形式</label>
-    <div class="seg" role="radiogroup" aria-labelledby="modeL">
-      <input type="radio" name="mode" id="m1" value="面訪" checked><label for="m1">面訪</label>
-      <input type="radio" name="mode" id="m2" value="線上"><label for="m2">線上</label>
-    </div>
     <label for="note">備註（選填）</label>
     <textarea id="note" placeholder="例如：希望地點在系館、需要提早結束的時間"></textarea>
     <p class="msg" id="msg" role="alert"></p>
@@ -168,10 +163,9 @@ function render(){
   const wk = d => { const [m,dd] = d.split("/").map(Number); const x = new Date(2026,m-1,dd); x.setDate(x.getDate()-((x.getDay()+6)%7)); return +x; };
   const t0 = Math.min(...slots.map(s=>mins(s.time))), t1 = Math.max(...slots.map(s=>endm(s.time)));
   const N = (t1-t0)/30;
-  const colOf = {}; const cols = ["64px"]; let c = 2, prev = null;
+  const colOf = {}; const cols = ["64px"]; let c = 2;
   days.forEach(d=>{
-    if(prev!==null && wk(d)!==prev){ cols.push("10px"); c++; }
-    cols.push("minmax(104px,1fr)"); colOf[d]=c; c++; prev = wk(d);
+    cols.push("minmax(104px,1fr)"); colOf[d]=c; c++;
   });
   let h = "";
   h += `<div class="hd" style="grid-row:1;grid-column:1"></div>`;
@@ -203,7 +197,7 @@ $("#cancel").onclick = ()=>dlg.close();
 $("#form").addEventListener("submit", async e=>{
   e.preventDefault();
   const name = nameSel.value; if(!name){ $("#msg").textContent="請先選擇您的姓名"; return; }
-  const body = {row:current.row, time:current.time, name, mode:document.querySelector("input[name=mode]:checked").value, note:$("#note").value.trim()};
+  const body = {row:current.row, time:current.time, name, note:$("#note").value.trim()};
   const ok = $("#ok"); ok.disabled = true; ok.textContent = "送出中…"; $("#msg").textContent="";
   try{
     if(API_URL){
@@ -213,7 +207,7 @@ $("#form").addEventListener("submit", async e=>{
     slots.forEach(s=>{ if(s.row===mine) s.taken=false; });
     current.taken = true; mine = current.row;
     dlg.innerHTML = `<div class="done"><div class="tick" aria-hidden="true">✓</div><h3>預約完成</h3>
-      <p class="sub">${name} 老師，已為您保留<br><b>${current.date}（${current.weekday}）${current.time}</b>（${body.mode}）。<br>助理會再寄確認信與行事曆邀請。</p>
+      <p class="sub">${name} 老師，已為您保留<br><b>${current.date}（${current.weekday}）${current.time}</b>。<br>助理會再寄確認信與行事曆邀請。</p>
       <button class="btn primary" onclick="location.reload()" style="margin-top:8px">完成</button></div>`;
     render(); document.querySelector(`.slot[data-row="${mine}"]`)?.classList.add("flash");
   }catch(err){
